@@ -24,6 +24,12 @@ const router = createBrowserRouter([
       {
         path: "/posts/:id",
         element: <PostDetails />,
+        loader: async ({ params }) => {
+          if (!Number(params.id)) {
+            return;
+          }
+          return params.id;
+        },
       },
       {
         path: "/posts/add",
