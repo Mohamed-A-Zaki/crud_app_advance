@@ -1,5 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import { PostType, deletePost } from "../store/PostsSlice";
+import { PostType } from "../store/PostsSlice";
 import { useState } from "react";
 import ConfirmDelete from "./ConfirmDelete";
 
