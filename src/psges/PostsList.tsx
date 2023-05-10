@@ -1,8 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+
 import { getPosts } from "../store/PostsSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+
 import Post from "../components/Post";
+import ErrorMessage from "../components/ErrorMessage";
 
 const PostsList = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +26,7 @@ const PostsList = () => {
   if (error) {
     return (
       <Container>
-        <div className="alert alert-danger mt-3 text-center">{error}</div>
+        <ErrorMessage error={error} />
       </Container>
     );
   }

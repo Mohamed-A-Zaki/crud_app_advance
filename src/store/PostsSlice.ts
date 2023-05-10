@@ -24,6 +24,14 @@ export const getPosts = createAsyncThunk("posts/getPosts", async () => {
   return data;
 });
 
+export const insretPost = createAsyncThunk(
+  "posts/insretPost",
+  async (post: Omit<PostType, "id">) => {
+    const { data } = await axios.post("http://localhost:3000/posts", post);
+    return data;
+  }
+);
+
 export const deletePost = createAsyncThunk(
   "posts/deletePost",
   async (id: number) => {
@@ -50,7 +58,18 @@ const PostsSlice = createSlice({
         state.loading = false;
         state.error = error.message as string;
       })
-
+      // insert post
+      .addCase(insretPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(insretPost.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.posts.push(payload);
+      })
+      .addCase(insretPost.rejected, (state, { error }) => {
+        state.loading = false;
+        state.error = error.message as string;
+      })
       // delete post
       .addCase(deletePost.pending, (state) => {
         state.loading = true;
