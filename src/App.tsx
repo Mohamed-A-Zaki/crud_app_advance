@@ -1,4 +1,5 @@
 import "./App.scss";
+import Footer from "./components/Footer";
 import Navigationbar from "./components/Navigationbar";
 import { Outlet } from "react-router-dom";
 
@@ -7,6 +8,7 @@ const App = () => {
     <div className="app">
       <Navigationbar />
       <Outlet />
+      <Footer />
     </div>
   );
 };

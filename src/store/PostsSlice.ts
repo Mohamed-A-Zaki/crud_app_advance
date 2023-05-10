@@ -9,18 +9,25 @@ export type PostType = {
 
 type InitialState = {
   posts: PostType[];
+  post: PostType | null;
   loading: boolean;
   error: null | string;
 };
 
 const initialState: InitialState = {
   posts: [],
+  post: null,
   loading: false,
   error: null,
 };
 
 export const getPosts = createAsyncThunk("posts/getPosts", async () => {
   const { data } = await axios.get("http://localhost:3000/posts");
+  return data;
+});
+
+export const getPost = createAsyncThunk("posts/getPost", async (id: number) => {
+  const { data } = await axios.get(`http://localhost:3000/posts/${id}`);
   return data;
 });
 
@@ -55,6 +62,18 @@ const PostsSlice = createSlice({
         state.posts = payload;
       })
       .addCase(getPosts.rejected, (state, { error }) => {
+        state.loading = false;
+        state.error = error.message as string;
+      })
+      // get one post
+      .addCase(getPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPost.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.post = payload;
+      })
+      .addCase(getPost.rejected, (state, { error }) => {
         state.loading = false;
         state.error = error.message as string;
       })

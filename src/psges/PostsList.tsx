@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 import Post from "../components/Post";
 import ErrorMessage from "../components/ErrorMessage";
+import Loading from "../components/Loading";
 
 const PostsList = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +19,7 @@ const PostsList = () => {
   if (loading) {
     return (
       <Container>
-        <h3 className="text-center">Loading...</h3>
+        <Loading />
       </Container>
     );
   }
