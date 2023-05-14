@@ -10,7 +10,7 @@ const EditPost = () => {
   const [description, setDescription] = useState("");
 
   const dispatch = useAppDispatch();
-  const { loading, error, post } = useAppSelector((state) => state.posts);
+  const { loading, error } = useAppSelector((state) => state.posts);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -18,11 +18,11 @@ const EditPost = () => {
   useEffect(() => {
     dispatch(getPost(Number(id)))
       .unwrap()
-      .then(() => {
-        setTitle(String(post?.title));
-        setDescription(String(post?.description));
+      .then(({ title, description }) => {
+        setTitle(title);
+        setDescription(description);
       });
-  }, [dispatch, id, post?.description, post?.title]);
+  }, [dispatch, id]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
