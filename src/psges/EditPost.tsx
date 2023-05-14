@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import ErrorMessage from "../components/ErrorMessage";
-import { editPost } from "../store/PostsSlice";
+import { editPost, getPost } from "../store/PostsSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditPost = () => {
-  const { loading, error, post } = useAppSelector((state) => state.posts);
-
-  const [title, setTitle] = useState(post?.title as string);
-  const [description, setDescription] = useState(post?.description as string);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const { loading, error, post } = useAppSelector((state) => state.posts);
 
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getPost(Number(id)))
+      .unwrap()
+      .then(() => {
+        setTitle(String(post?.title));
+        setDescription(String(post?.description));
+      });
+  }, [dispatch, id, post?.description, post?.title]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

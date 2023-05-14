@@ -1,14 +1,12 @@
 import { Button, Card } from "react-bootstrap";
-import { PostType, getPost } from "../store/PostsSlice";
+import { PostType } from "../store/PostsSlice";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ConfirmDelete from "./ConfirmDelete";
-import { useAppDispatch } from "../store/hooks";
 
 const Post = ({ id, title, description }: PostType) => {
-  const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const [show, setShow] = useState(false);
 
   return (
     <Card className="h-100">
@@ -25,14 +23,11 @@ const Post = ({ id, title, description }: PostType) => {
       <Card.Footer className="d-flex gap-2">
         <Button
           className="btn-sm"
-          onClick={() => {
-            dispatch(getPost(id))
-              .unwrap()
-              .then(() => navigate(`/posts/${id}/edit`));
-          }}
+          onClick={() => navigate(`/posts/${id}/edit`)}
         >
           Edit
         </Button>
+
         <Button
           className="btn-sm"
           variant="danger"
