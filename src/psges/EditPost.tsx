@@ -26,7 +26,8 @@ const EditPost = () => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(editPost({ id: Number(id), post: { title, description } }))
+    const updated_post = { id: Number(id), title, description };
+    dispatch(editPost(updated_post))
       .unwrap()
       .then(() => navigate("/"));
   }

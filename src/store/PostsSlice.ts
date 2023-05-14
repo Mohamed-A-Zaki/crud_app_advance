@@ -49,9 +49,9 @@ export const deletePost = createAsyncThunk(
 
 export const editPost = createAsyncThunk(
   "posts/editPost",
-  async ({ id, post }: { id: number; post: Omit<PostType, "id"> }) => {
+  async (post: PostType) => {
     const { data } = await axios.patch(
-      `http://localhost:3000/posts/${id}`,
+      `http://localhost:3000/posts/${post.id}`,
       post
     );
     return data;
