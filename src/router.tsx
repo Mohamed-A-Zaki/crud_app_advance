@@ -25,10 +25,7 @@ const router = createBrowserRouter([
         path: "/posts/:id",
         element: <PostDetails />,
         loader: async ({ params }) => {
-          if (!Number(params.id)) {
-            return;
-          }
-          return params.id;
+          return Number(params.id) || undefined;
         },
       },
       {
@@ -38,6 +35,9 @@ const router = createBrowserRouter([
       {
         path: "/posts/:id/edit",
         element: <EditPost />,
+        loader: async ({ params }) => {
+          return Number(params.id) || undefined;
+        },
       },
     ],
   },

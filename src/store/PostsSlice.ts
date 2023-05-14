@@ -47,6 +47,17 @@ export const deletePost = createAsyncThunk(
   }
 );
 
+export const editPost = createAsyncThunk(
+  "posts/editPost",
+  async ({ id, post }: { id: number; post: Omit<PostType, "id"> }) => {
+    const { data } = await axios.patch(
+      `http://localhost:3000/posts/${id}`,
+      post
+    );
+    return data;
+  }
+);
+
 const PostsSlice = createSlice({
   name: "posts",
   initialState,
@@ -98,6 +109,18 @@ const PostsSlice = createSlice({
         state.posts = state.posts.filter((post) => post.id !== action.meta.arg);
       })
       .addCase(deletePost.rejected, (state, { error }) => {
+        state.loading = false;
+        state.error = error.message as string;
+      })
+      // edit post
+      .addCase(editPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editPost.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.post = payload;
+      })
+      .addCase(editPost.rejected, (state, { error }) => {
         state.loading = false;
         state.error = error.message as string;
       });
