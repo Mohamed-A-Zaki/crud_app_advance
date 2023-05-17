@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import ErrorMessage from "../components/ErrorMessage";
 import { editPost, getPost } from "../store/PostsSlice";
+import { Button, Container, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+
+import ErrorMessage from "../components/ErrorMessage";
 
 const EditPost = () => {
   const [title, setTitle] = useState("");
@@ -37,6 +38,7 @@ const EditPost = () => {
       <Container>
         {error && <ErrorMessage error={error} />}
 
+        <h2 className="text-center">Edit Post</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="title">
             <Form.Label>Title</Form.Label>

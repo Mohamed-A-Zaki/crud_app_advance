@@ -1,7 +1,12 @@
 import { NavLink, Link } from "react-router-dom";
-import { Container, Navbar, Nav } from "react-bootstrap";
+import { Container, Navbar, Nav, Button } from "react-bootstrap";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { Logout } from "../store/authSlice";
 
 const Navigationbar = () => {
+  const dispatch = useAppDispatch();
+  const { isLogin } = useAppSelector((state) => state.auth);
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -23,9 +28,15 @@ const Navigationbar = () => {
             </NavLink>
           </Nav>
           <Nav>
-            <NavLink to="/login" className="nav-link">
-              Login
-            </NavLink>
+            {isLogin ? (
+              <Button variant="danger" onClick={() => dispatch(Logout())}>
+                Logout
+              </Button>
+            ) : (
+              <NavLink to="/login" className="btn btn-primary">
+                Login
+              </NavLink>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

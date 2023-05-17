@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { insretPost } from "../store/PostsSlice";
@@ -11,7 +11,15 @@ const AddPost = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const { isLogin } = useAppSelector((state) => state.auth);
   const { error, loading } = useAppSelector((state) => state.posts);
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin, navigate]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,6 +33,7 @@ const AddPost = () => {
       <Container>
         {error && <ErrorMessage error={error} />}
 
+        <h2 className="text-center">Add Post</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="title">
             <Form.Label>Title</Form.Label>

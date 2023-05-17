@@ -6,6 +6,7 @@ import EditPost from "./psges/EditPost.tsx";
 import PostsList from "./psges/PostsList.tsx";
 import ErrorPage from "./psges/ErrorPage.tsx";
 import PostDetails from "./psges/PostDetails.tsx";
+import Login from "./psges/LoginForm.tsx";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <PostsList />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
       {
         path: "/posts",
