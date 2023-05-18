@@ -1,12 +1,14 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "./App.tsx";
-import AddPost from "./psges/AddPost.tsx";
-import EditPost from "./psges/EditPost.tsx";
-import PostsList from "./psges/PostsList.tsx";
-import ErrorPage from "./psges/ErrorPage.tsx";
-import PostDetails from "./psges/PostDetails.tsx";
-import Login from "./psges/LoginForm.tsx";
+
+const AddPost = lazy(() => import("./psges/AddPost.tsx"));
+const EditPost = lazy(() => import("./psges/EditPost.tsx"));
+const PostsList = lazy(() => import("./psges/PostsList.tsx"));
+const ErrorPage = lazy(() => import("./psges/ErrorPage.tsx"));
+const LoginForm = lazy(() => import("./psges/LoginForm.tsx"));
+const PostDetails = lazy(() => import("./psges/PostDetails.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <Login />,
+        element: <LoginForm />,
       },
       {
         path: "/posts",

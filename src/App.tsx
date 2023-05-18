@@ -1,13 +1,18 @@
 import "./App.scss";
-import Footer from "./components/Footer";
-import Navigationbar from "./components/Navigationbar";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
+
+import Footer from "./components/Footer";
+import Loading from "./components/Loading";
+import Navigationbar from "./components/Navigationbar";
 
 const App = () => {
   return (
     <div className="app">
       <Navigationbar />
-      <Outlet />
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
       <Footer />
     </div>
   );

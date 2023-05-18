@@ -24,7 +24,11 @@ const LoginForm = () => {
   }
 
   return (
-    <Form className="mt-3" onSubmit={handleSubmit}>
+    <Form
+      className="login-form my-5 mx-100 m-auto shadow py-5 px-4 rounded-4 border"
+      onSubmit={handleSubmit}
+      style={{ width: 600 }}
+    >
       <Container>
         {error && <ErrorMessage error={error} />}
 
