@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 
 import App from "./App.tsx";
 import AddPost from "./pages/AddPost.tsx";
@@ -15,7 +15,7 @@ import PostDetails from "./pages/PostDetails.tsx";
 // const LoginForm = lazy(() => import("./psges/LoginForm.tsx"));
 // const PostDetails = lazy(() => import("./psges/PostDetails.tsx"));
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <App />,
