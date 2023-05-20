@@ -22,13 +22,14 @@ const LoginForm = () => {
         email: Yup.string().email().required(),
         password: Yup.string().required(),
       })}
-      onSubmit={({ email, password }) => {
+      onSubmit={({ email, password }, actions) => {
         if (email === "example@example.com" && password === "asd") {
           dispatch(Login());
           navigate("/");
         } else {
           dispatch(setError("Error in email or password"));
         }
+        actions.setSubmitting(false);
       }}
     >
       {({ handleSubmit, getFieldProps, isSubmitting, errors, touched }) => (
